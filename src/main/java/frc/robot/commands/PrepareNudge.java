@@ -6,20 +6,21 @@ package frc.robot.commands;
 
 import static frc.robot.Constants.LauncherConstants.*;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CANLauncher;
 
-// import frc.robot.subsystems.CANLauncher;
-
-public class PrepareLaunch extends Command {
+public class PrepareNudge extends Command {
   CANLauncher m_launcher;
 
-  // CANLauncher m_launcher;
+  double m_NudgePrepareLauncherSpeed = kNudgePrepareLauncherSpeed;
 
   /** Creates a new PrepareLaunch. */
-  public PrepareLaunch(CANLauncher launcher) {
+  public PrepareNudge(CANLauncher launcher) {
     // save the launcher system internally
     m_launcher = launcher;
+
+    SmartDashboard.putNumber("Nudge Prepare Launcher Speed", m_NudgePrepareLauncherSpeed);
 
     // indicate that this command requires the launcher system
     addRequirements(m_launcher);
@@ -29,7 +30,10 @@ public class PrepareLaunch extends Command {
   @Override
   public void initialize() {
     // Set launch wheel to speed, keep feed wheel at 0 to let launch wheel spin up.
-    m_launcher.setLaunchWheel(kLauncherSpeed);
+    m_NudgePrepareLauncherSpeed = SmartDashboard
+      .getNumber("Nudge Prepare Launcher Speed", m_NudgePrepareLauncherSpeed);
+
+    m_launcher.setLaunchWheel(m_NudgePrepareLauncherSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

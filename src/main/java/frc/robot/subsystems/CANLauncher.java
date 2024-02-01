@@ -16,9 +16,6 @@ public class CANLauncher extends SubsystemBase {
   CANSparkMax m_launchWheel;
   CANSparkMax m_feedWheel;
 
-  double m_IntakeFeederSpeed = kIntakeFeederSpeed;
-  double m_IntakeLauncherSpeed = kIntakeLauncherSpeed;
-
   /** Creates a new Launcher. */
   public CANLauncher() {
     m_launchWheel = new CANSparkMax(kLauncherID, MotorType.kBrushed);
@@ -26,9 +23,6 @@ public class CANLauncher extends SubsystemBase {
 
     m_launchWheel.setSmartCurrentLimit(kLauncherCurrentLimit);
     m_feedWheel.setSmartCurrentLimit(kFeedCurrentLimit);
-
-    SmartDashboard.putNumber("Intake Feeder Speed", m_IntakeFeederSpeed);
-    SmartDashboard.putNumber("Intake Launcher Speed", m_IntakeLauncherSpeed);
   }
 
   /**
@@ -44,8 +38,8 @@ public class CANLauncher extends SubsystemBase {
     return this.startEnd(
         // When the command is initialized, set the wheels to the intake speed values
         () -> {
-          setFeedWheel(m_IntakeFeederSpeed);
-          setLaunchWheel(m_IntakeLauncherSpeed);
+          setFeedWheel(kIntakeFeederSpeed);
+          setLaunchWheel(kIntakeLauncherSpeed);
         },
         // When the command stops, stop the wheels
         () -> {
@@ -55,10 +49,10 @@ public class CANLauncher extends SubsystemBase {
 
   @Override
   public void periodic() {
-    m_IntakeFeederSpeed = SmartDashboard.getNumber("Intake Feeder Speed", m_IntakeFeederSpeed);
-    m_IntakeLauncherSpeed = SmartDashboard.getNumber("Intake Launcher Speed", m_IntakeLauncherSpeed);
-  }
+    SmartDashboard.putNumber("Launcher Speed", m_launchWheel.get());
+    SmartDashboard.putNumber("Feed wheel Speed", m_feedWheel.get());
 
+  }
 
   // An accessor method to set the speed (technically the output percentage) of the launch wheel
   public void setLaunchWheel(double speed) {
