@@ -8,18 +8,18 @@ import static frc.robot.Constants.LauncherConstants.*;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.CANLauncher;
 
-/*This is an example of creating a command as a class. The base Command class provides a set of
- * methods that your command will override.
- */
 public class FlingNote extends Command {
   CANLauncher m_launcher;
 
   double m_FlingFeederSpeed = kFlingFeederSpeed;
   double m_FlingLauncherSpeed = kFlingLauncherSpeed;
-
-  // CANLauncher m_launcher;
+  double m_FlingSpinUpDelay = kFlingSpinUpDelay;
+  double m_FlingShootTime = kFlingShootTime;
 
   /** Creates a new LaunchNote. */
   public FlingNote(CANLauncher launcher) {
@@ -28,6 +28,8 @@ public class FlingNote extends Command {
 
     SmartDashboard.putNumber("Fling Feeder Speed", m_FlingFeederSpeed);
     SmartDashboard.putNumber("Fling Launcher Speed", m_FlingLauncherSpeed);
+    SmartDashboard.putNumber("Fling Spin Up Delay", m_FlingSpinUpDelay);
+    SmartDashboard.putNumber("Fling Shoot Time", m_FlingShootTime);
 
     // indicate that this command requires the launcher system
     addRequirements(m_launcher);
@@ -39,18 +41,23 @@ public class FlingNote extends Command {
     // Set the wheels to launching speed
     m_FlingFeederSpeed = SmartDashboard.getNumber("Fling Feeder Speed", m_FlingFeederSpeed);
     m_FlingLauncherSpeed = SmartDashboard.getNumber("Fling Launcher Speed", m_FlingLauncherSpeed);
+    m_FlingSpinUpDelay = SmartDashboard.getNumber("Fling Spin Up Delay", m_FlingSpinUpDelay);
+    m_FlingShootTime = SmartDashboard.getNumber("Fling Shoot Time", m_FlingShootTime);
 
-    m_launcher.setLaunchWheel(m_FlingLauncherSpeed);
-    m_launcher.setFeedWheel(m_FlingFeederSpeed);
+    // m_launcher.setLaunchWheel(m_FlingLauncherSpeed);
+
+    new SequentialCommandGroup(
+            new InstantCommand(() -> m_launcher.setLaunchWheel(m_FlingLauncherSpeed), m_launcher),
+            new WaitCommand(m_FlingSpinUpDelay),
+            new InstantCommand(() -> m_launcher.setFeedWheel(m_FlingFeederSpeed), m_launcher),
+            new WaitCommand(m_FlingShootTime),
+            new InstantCommand(() -> m_launcher.stop(), m_launcher))
+        .schedule();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    // There is nothing we need this command to do on each iteration. You could remove this method
-    // and the default blank method
-    // of the base class will run.
-  }
+  public void execute() {}
 
   // Returns true when the command should end.
   @Override

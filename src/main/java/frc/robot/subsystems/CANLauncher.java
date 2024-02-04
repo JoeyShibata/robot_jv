@@ -17,6 +17,9 @@ public class CANLauncher extends SubsystemBase {
   TalonSRX m_launchWheel;
   TalonSRX m_feedWheel;
 
+  double m_feedWheelSpeed;
+  double m_launchWheelSpeed;
+
   /** Creates a new Launcher. */
   public CANLauncher() {
     m_launchWheel = new TalonSRX(kLauncherID);
@@ -29,13 +32,6 @@ public class CANLauncher extends SubsystemBase {
     m_feedWheel.setNeutralMode(NeutralMode.Brake);
   }
 
-  /**
-   * This method is an example of the 'subsystem factory' style of command creation. A method inside
-   * the subsytem is created to return an instance of a command. This works for commands that
-   * operate on only that subsystem, a similar approach can be done in RobotContainer for commands
-   * that need to span subsystems. The Subsystem class has helper methods, such as the startEnd
-   * method used here, to create these commands.
-   */
   public Command getIntakeCommand() {
     // The startEnd helper method takes a method to call when the command is initialized and one to
     // call when it ends
@@ -53,24 +49,28 @@ public class CANLauncher extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Launcher Speed", m_launchWheel.getMotorOutputPercent());
-    SmartDashboard.putNumber("Feed wheel Speed", m_feedWheel.getMotorOutputPercent());
+    SmartDashboard.putNumber("Launcher wheel Speed", m_launchWheelSpeed);
+    SmartDashboard.putNumber("Feed wheel Speed", m_feedWheelSpeed);
   }
 
   // An accessor method to set the speed (technically the output percentage) of the launch wheel
   public void setLaunchWheel(double speed) {
     m_launchWheel.set(ControlMode.PercentOutput, speed);
+    m_launchWheelSpeed = speed;
   }
 
   // An accessor method to set the speed (technically the output percentage) of the feed wheel
   public void setFeedWheel(double speed) {
     m_feedWheel.set(ControlMode.PercentOutput, speed);
+    m_feedWheelSpeed = speed;
   }
 
   // A helper method to stop both wheels. You could skip having a method like this and call the
   // individual accessors with speed = 0 instead
   public void stop() {
-    m_launchWheel.set(ControlMode.PercentOutput, 0);
-    m_feedWheel.set(ControlMode.PercentOutput, 0);
+    m_launchWheel.set(ControlMode.PercentOutput, 0.0);
+    m_feedWheel.set(ControlMode.PercentOutput, 0.0);
+    m_feedWheelSpeed = 0.0;
+    m_launchWheelSpeed = 0.0;
   }
 }
