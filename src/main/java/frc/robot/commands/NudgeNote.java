@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.CANLauncher;
 
-/*This is an example of creating a command as a class. The base Command class provides a set of 
+/*This is an example of creating a command as a class. The base Command class provides a set of
  * methods that your command will override.
  */
 public class NudgeNote extends Command {
@@ -37,10 +37,8 @@ public class NudgeNote extends Command {
   @Override
   public void initialize() {
     // Set the wheels to launching speed
-    m_NudgeFeederSpeed = SmartDashboard
-      .getNumber("Nudge Feeder speed", m_NudgeFeederSpeed);
-    m_NudgeLauncherSpeed = SmartDashboard
-      .getNumber("Nudge Launcher speed", m_NudgeLauncherSpeed);
+    m_NudgeFeederSpeed = SmartDashboard.getNumber("Nudge Feeder speed", m_NudgeFeederSpeed);
+    m_NudgeLauncherSpeed = SmartDashboard.getNumber("Nudge Launcher speed", m_NudgeLauncherSpeed);
 
     m_launcher.setLaunchWheel(m_NudgeLauncherSpeed);
     m_launcher.setFeedWheel(m_NudgeFeederSpeed);

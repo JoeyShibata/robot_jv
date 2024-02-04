@@ -30,8 +30,8 @@ public class PrepareNudge extends Command {
   @Override
   public void initialize() {
     // Set launch wheel to speed, keep feed wheel at 0 to let launch wheel spin up.
-    m_NudgePrepareLauncherSpeed = SmartDashboard
-      .getNumber("Nudge Prepare Launcher Speed", m_NudgePrepareLauncherSpeed);
+    m_NudgePrepareLauncherSpeed =
+        SmartDashboard.getNumber("Nudge Prepare Launcher Speed", m_NudgePrepareLauncherSpeed);
 
     m_launcher.setLaunchWheel(m_NudgePrepareLauncherSpeed);
   }

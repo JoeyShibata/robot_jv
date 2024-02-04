@@ -68,15 +68,15 @@ public class RobotContainer {
     /*Create an inline sequence to run when the operator presses and holds the A (green) button. Run the PrepareLaunch
      * command for 1 seconds and then run the LaunchNote command */
     m_driverController
-      .button(1)
-      .whileTrue( 
-        new PrepareFling(m_launcher)
+        .x()
+        .whileTrue(
+            new PrepareFling(m_launcher)
                 .withTimeout(SmartDashboard.getNumber("Fling delay", m_LauncherDelay))
                 .andThen(new FlingNote(m_launcher))
                 .handleInterrupt(() -> m_launcher.stop()));
 
     m_driverController
-        .button(2)
+        .button(1)
         .whileTrue(
             new PrepareNudge(m_launcher)
                 .withTimeout(SmartDashboard.getNumber("Nudge delay", m_NudgeDelay))
@@ -85,7 +85,7 @@ public class RobotContainer {
 
     // Set up a binding to run the intake command while the operator is pressing and holding the
     // left Bumper
-    m_operatorController.leftBumper().whileTrue(m_launcher.getIntakeCommand());
+    m_driverController.leftBumper().whileTrue(m_launcher.getIntakeCommand());
   }
 
   /**
@@ -97,6 +97,4 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_drivetrain);
   }
-
-
 }
