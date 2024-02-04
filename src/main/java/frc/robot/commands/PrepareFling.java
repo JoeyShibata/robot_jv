@@ -30,8 +30,8 @@ public class PrepareFling extends Command {
   @Override
   public void initialize() {
     // Set launch wheel to speed, keep feed wheel at 0 to let launch wheel spin up.
-    m_FlingPrepareLauncherSpeed = SmartDashboard
-      .getNumber("Fling Prepare Launcher Speed", m_FlingPrepareLauncherSpeed);
+    m_FlingPrepareLauncherSpeed =
+        SmartDashboard.getNumber("Fling Prepare Launcher Speed", m_FlingPrepareLauncherSpeed);
 
     m_launcher.setLaunchWheel(m_FlingPrepareLauncherSpeed);
   }
@@ -49,7 +49,6 @@ public class PrepareFling extends Command {
   public void end(boolean interrupted) {
     // Do nothing when the command ends. The launch wheel needs to keep spinning in order to launch
   }
-
 
   // Returns true when the command should end.
   @Override
