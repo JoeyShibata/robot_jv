@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.FlingNote;
+import frc.robot.commands.Intake;
 import frc.robot.commands.NudgeNote;
 import frc.robot.subsystems.CANDrivetrain;
 import frc.robot.subsystems.CANLauncher;
-
 
 public class RobotContainer {
   // The robot's subsystems are defined here.
@@ -28,7 +28,6 @@ public class RobotContainer {
     configureBindings();
   }
 
-
   private void configureBindings() {
 
     // Set the default command for the drivetrain to drive using the joysticks
@@ -39,11 +38,13 @@ public class RobotContainer {
                     -m_driverController.getLeftY(), -m_driverController.getRightX()),
             m_drivetrain));
 
-    m_driverController.a().whileTrue(new FlingNote(m_launcher));
+    m_driverController.rightTrigger(0.5).whileTrue(new FlingNote(m_launcher));
 
-    m_driverController.b().whileTrue(new NudgeNote(m_launcher));
+    m_driverController.rightBumper().whileTrue(new NudgeNote(m_launcher));
 
     m_driverController.leftBumper().whileTrue(m_launcher.getIntakeCommand());
+
+    m_driverController.leftTrigger(0.5).whileTrue(new Intake(m_launcher));
   }
 
   /**

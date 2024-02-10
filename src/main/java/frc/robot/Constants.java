@@ -45,16 +45,17 @@ public final class Constants {
 
     public static final double kIntakeLauncherSpeed = -1.0;
     public static final double kIntakeFeederSpeed = -0.2;
+    public static final double kIntakeDelay = 0.5;
 
     public static final double kFlingLauncherSpeed = 1.0;
     public static final double kFlingFeederSpeed = 1.0;
 
-    public static final double kNudgeLauncherSpeed = 0.1;
+    public static final double kNudgeLauncherSpeed = 0.36;
     public static final double kNudgeFeederSpeed = 1.0;
 
     public static final double kFlingSpinUpDelay = 0.5;
     public static final double kFlingShootTime = 1.0;
-    public static final double kNudgeSpinUpDelay = 0.25;
+    public static final double kNudgeSpinUpDelay = 0.75;
     public static final double kNudgeShootTime = 1.0;
   }
 }
