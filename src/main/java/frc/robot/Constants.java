@@ -50,10 +50,10 @@ public final class Constants {
     public static final double kFlingLauncherSpeed = 1.0;
     public static final double kFlingFeederSpeed = 1.0;
 
-    public static final double kNudgeLauncherSpeed = 0.36;
+    public static final double kNudgeLauncherSpeed = 0.52;
     public static final double kNudgeFeederSpeed = 1.0;
 
-    public static final double kFlingSpinUpDelay = 0.5;
+    public static final double kFlingSpinUpDelay = 0.75;
     public static final double kFlingShootTime = 1.0;
     public static final double kNudgeSpinUpDelay = 0.75;
     public static final double kNudgeShootTime = 1.0;
