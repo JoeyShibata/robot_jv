@@ -8,22 +8,22 @@ import static frc.robot.Constants.LauncherConstants.*;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class CANLauncher extends SubsystemBase {
-  TalonSRX m_launchWheel;
-  TalonSRX m_feedWheel;
+  VictorSPX m_launchWheel;
+  VictorSPX m_feedWheel;
 
   double m_feedWheelSpeed;
   double m_launchWheelSpeed;
 
   /** Creates a new Launcher. */
   public CANLauncher() {
-    m_launchWheel = new TalonSRX(kLauncherID);
-    m_feedWheel = new TalonSRX(kFeederID);
+    m_launchWheel = new VictorSPX(kLauncherID);
+    m_feedWheel = new VictorSPX(kFeederID);
 
     m_launchWheel.setInverted(true);
     m_feedWheel.setInverted(true);

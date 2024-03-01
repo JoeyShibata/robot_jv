@@ -6,8 +6,7 @@ package frc.robot.subsystems;
 
 import static frc.robot.Constants.DrivetrainConstants.*;
 
-import com.revrobotics.CANSparkLowLevel;
-import com.revrobotics.CANSparkMax;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -27,17 +26,22 @@ public class CANDrivetrain extends SubsystemBase {
    * member variables and perform any configuration or set up necessary on hardware.
    */
   public CANDrivetrain() {
-    CANSparkMax leftFront = new CANSparkMax(kLeftFrontID, CANSparkLowLevel.MotorType.kBrushless);
-    CANSparkMax leftRear = new CANSparkMax(kLeftRearID, CANSparkLowLevel.MotorType.kBrushless);
-    CANSparkMax rightFront = new CANSparkMax(kRightFrontID, CANSparkLowLevel.MotorType.kBrushless);
-    CANSparkMax rightRear = new CANSparkMax(kRightRearID, CANSparkLowLevel.MotorType.kBrushless);
+    WPI_VictorSPX leftFront = new WPI_VictorSPX(kLeftFrontID);
+    WPI_VictorSPX leftRear = new WPI_VictorSPX(kRightFrontID);
+    WPI_VictorSPX rightRear = new WPI_VictorSPX(kRightRearID);
+    WPI_VictorSPX rightFront = new WPI_VictorSPX(kRightFrontID);
 
     /*Sets current limits for the drivetrain motors. This helps reduce the likelihood of wheel spin, reduces motor heating
      *at stall (Drivetrain pushing against something) and helps maintain battery voltage under heavy demand */
-    leftFront.setSmartCurrentLimit(kCurrentLimit);
-    leftRear.setSmartCurrentLimit(kCurrentLimit);
-    rightFront.setSmartCurrentLimit(kCurrentLimit);
-    rightRear.setSmartCurrentLimit(kCurrentLimit);
+    // leftFront.setSmartCurrentLimit(kCurrentLimit);
+    // leftRear.setSmartCurrentLimit(kCurrentLimit);
+    // rightFront.setSmartCurrentLimit(kCurrentLimit);
+    // rightRear.setSmartCurrentLimit(kCurrentLimit);
+
+    leftFront.setInverted(false);
+    rightFront.setInverted(true);
+    leftRear.setInverted(false);
+    rightRear.setInverted(true);
 
     // Set the rear motors to follow the front motors.
     leftRear.follow(leftFront);
